@@ -105,7 +105,7 @@ static void FixReactivateApp(void)
 }
 
 + (BOOL)denySystemAlert {
-    return [[self sharedHelper] acknowledgeSystemAlert];
+    return [[self sharedHelper] denySystemAlert];
 }
 
 + (void)deactivateAppForDuration:(NSNumber *)duration {
