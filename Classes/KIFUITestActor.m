@@ -902,6 +902,11 @@
     return [UIAutomationHelper acknowledgeSystemAlert];
 }
 
+- (BOOL)denySystemAlert
+{
+    return [UIAutomationHelper denySystemAlert];
+}
+
 #endif
 
 - (void)tapItemAtIndexPath:(NSIndexPath *)indexPath inCollectionView:(UICollectionView *)collectionView
