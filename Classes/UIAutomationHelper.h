@@ -15,6 +15,8 @@
 
 + (BOOL)acknowledgeSystemAlert;
 
++ (BOOL)denySystemAlert;
+
 + (void)deactivateAppForDuration:(NSNumber *)duration;
 
 @end

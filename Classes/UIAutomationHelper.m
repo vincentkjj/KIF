@@ -104,6 +104,10 @@ static void FixReactivateApp(void)
     return [[self sharedHelper] acknowledgeSystemAlert];
 }
 
++ (BOOL)denySystemAlert {
+    return [[self sharedHelper] acknowledgeSystemAlert];
+}
+
 + (void)deactivateAppForDuration:(NSNumber *)duration {
     [[self sharedHelper] deactivateAppForDuration:duration];
 }
@@ -121,6 +125,22 @@ static void FixReactivateApp(void)
             KIFRunLoopRunInModeRelativeToAnimationSpeed(UIApplicationCurrentRunMode, 0.4, false);
             return YES;
 	}
+    return NO;
+}
+
+- (BOOL)denySystemAlert {
+    UIAApplication *application = [[self target] frontMostApp];
+    UIAAlert* alert = application.alert;
+    if (![alert isKindOfClass:[self nilElementClass]] && [self _alertIsValidAndVisible:alert]) {
+        [[alert.buttons firstObject] tap];
+        while ([self _alertIsValidAndVisible:alert]) {
+            // Wait for button press to complete.
+            KIFRunLoopRunInModeRelativeToAnimationSpeed(UIApplicationCurrentRunMode, 0.1, false);
+        }
+        // Wait for alert dismissial animation.
+        KIFRunLoopRunInModeRelativeToAnimationSpeed(UIApplicationCurrentRunMode, 0.4, false);
+        return YES;
+    }
     return NO;
 }
 
