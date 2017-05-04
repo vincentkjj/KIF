@@ -133,10 +133,6 @@ static void FixReactivateApp(void)
     UIAAlert* alert = application.alert;
     if (![alert isKindOfClass:[self nilElementClass]] && [self _alertIsValidAndVisible:alert]) {
         [[alert.buttons firstObject] tap];
-        while ([self _alertIsValidAndVisible:alert]) {
-            // Wait for button press to complete.
-            KIFRunLoopRunInModeRelativeToAnimationSpeed(UIApplicationCurrentRunMode, 0.1, false);
-        }
         // Wait for alert dismissial animation.
         KIFRunLoopRunInModeRelativeToAnimationSpeed(UIApplicationCurrentRunMode, 0.4, false);
         return YES;
